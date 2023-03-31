@@ -4,8 +4,8 @@ My repository of homeassistant addons.
 
 ## Addons
 
-### 
-
+### Intermedium
+A smtp to homeassistant notify proxy.
 
 
 ## Building, running and publishing
