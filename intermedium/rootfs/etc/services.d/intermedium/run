@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bashio
+
+# Add your code here
+
+CONFIG="/data/options.json"
+
+## Run your program
+exec /usr/bin/intermedium.py $CONFIG
