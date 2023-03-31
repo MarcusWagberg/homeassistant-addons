@@ -1,8 +1,11 @@
-from sys import argv
+from re import match
 from platform import machine
 from os.path import abspath, dirname
 
-addons = ["test-addon"]
+addons = [""]
+
+def validate_version(ver: str) -> bool:
+    return bool(match(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(r[1-9]\d*)?$", ver))
 
 def get_root_path(arg0: str) -> str:
     return dirname(abspath(dirname(arg0)))
