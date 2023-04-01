@@ -1,3 +1,4 @@
 GitPython
 docker
 pyyaml
+requirements-parser
