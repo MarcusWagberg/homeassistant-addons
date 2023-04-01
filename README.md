@@ -8,7 +8,7 @@ My repository of homeassistant addons.
 A smtp to homeassistant notify proxy.
 
 
-## Building, running and publishing
+## Building, running, publishing, etc
 Requierments:
 * Python3 (tested with Python 3.10.10)
 * Docker  (tested with Docker 23.0.1)
@@ -41,4 +41,9 @@ $ ./scripts/build.py [addon]
 ### Publishing
 ```Bash
 $ ./scripts/publish.py [addon] [version]
+```
+
+### Checking outdated packages
+```Bash
+$ ./scripts/outdated.py
 ```
