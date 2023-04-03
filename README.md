@@ -5,7 +5,10 @@ My repository of homeassistant addons.
 ## Addons
 
 ### Intermedium
-A smtp to homeassistant notify proxy.
+Intermedium is a smtp to homeassistant notify proxy, writen by myself.
+
+### Radicale
+Radicale is a small but powerful CalDAV (calendars, to-do lists) and CardDAV (contacts) server. This addon also includes RadicaleInfCloud which integrates InfCloud into Radicale's web interface. InfCloud allows you to to manage appointments, tasks and contacts in the browser.
 
 
 ## Building, running, publishing, etc
