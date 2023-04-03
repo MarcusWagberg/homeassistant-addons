@@ -1,0 +1,78 @@
+#!/usr/bin/with-contenv bashio
+
+# Add your code here
+
+function escape_config () {
+  local ret_var="$(bashio::config "$1")"
+  if [[ $ret_var =~ ^[A-Za-z0-9_/]*$ ]]; then
+    echo "$ret_var"
+  else
+    bashio::log.fatal "$1 in config dose not match reqex pattern ^[A-Za-z0-9_/]*$"
+    bashio::exit.nok
+  fi
+}
+
+## Run your program
+CONFIG='/etc/radicale/config'
+STORAGE_PATH='/data/collections'
+HTPASSWD_FILE='/etc/radicale/htpasswd'
+
+bashio::config.require.ssl 'ssl' 'certfile' 'keyfile'
+
+CONF_SSL="$(bashio::config.true 'ssl')"
+CONF_CERTFILE="/ssl/$(bashio::config 'certfile')"
+CONF_KEYFILE="/ssl/$(bashio::config 'keyfile')"
+
+CONF_LANGUAGE="$(escape_config 'language')"
+CONF_TIMEZONE="$(escape_config 'timezone')"
+
+
+echo Creating config file
+mkdir /etc/radicale
+{
+  echo "[storage]";
+  echo "filesystem_folder = $STORAGE_PATH";
+  echo "";
+  echo "[auth]";
+  echo "type = htpasswd";
+  echo "htpasswd_filename = $HTPASSWD_FILE";
+  echo "htpasswd_encryption = bcrypt";
+  echo "";
+  echo "[web]";
+  echo "type = radicale_infcloud"
+  echo "infcloud_config = globalInterfaceLanguage='$CONF_LANGUAGE';"
+  echo "                  globalTimeZone='$CONF_TIMEZONE';"
+  echo "";
+  echo "[server]";
+  echo "hosts = 0.0.0.0:5232, [::]:5232";
+} > "$CONFIG"
+
+
+if $CONF_SSL; then
+  {
+    echo "ssl = True";
+    echo "certificate = $CONF_CERTFILE";
+    echo "key = $CONF_KEYFILE";
+  } >> "$CONFIG"
+fi
+
+
+echo Configuring users
+for user in $(bashio::config 'users|keys'); do
+  bashio::config.require.safe_password "users[${user}].password"
+  
+  user_username="$(escape_config "users[${user}].username")"
+  user_password="$(bashio::config "users[${user}].password")"
+
+  if [ ! -f "$HTPASSWD_FILE" ]; then
+    echo "$user_password" | htpasswd -c -i -B "$HTPASSWD_FILE" "$user_username"
+  else
+    echo "$user_password" | htpasswd -i -B "$HTPASSWD_FILE" "$user_username"
+  fi
+
+done
+
+
+echo Starting Radicale
+python3 -m pip show radicale
+python3 -m radicale
