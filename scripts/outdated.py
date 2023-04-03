@@ -16,14 +16,15 @@ def check_requirements_txt(requirements_path: str):
 
     with open(requirements_path, "r", encoding="utf-8") as fd:
         for requirement in parse(fd):
-            if len(requirement.specs) != 1 or requirement.specs[0][0] != "==":
-                print(f"Invalid requirement '{requirement.name} {requirement.specs}' in {requirements_path}")
-                exit(1)
+            if not requirement.line.startswith("https://"):
+                if len(requirement.specs) != 1 or requirement.specs[0][0] != "==":
+                    print(f"Invalid requirement '{requirement.name} {requirement.specs}' in {requirements_path}")
+                    exit(1)
 
-            requirements[requirement.name] = {
-                "wanted": requirement.specs[0][1],
-                "latest": ""
-            }
+                requirements[requirement.name] = {
+                    "wanted": requirement.specs[0][1],
+                    "latest": ""
+                }
 
     for requirement in requirements:
         req = Request(f"https://pypi.org/pypi/{requirement}/json")
