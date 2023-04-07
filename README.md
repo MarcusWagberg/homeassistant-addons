@@ -38,7 +38,7 @@ $ ./scripts/build.py [addon]
 
 ### Running
 ```Bash
-$ ./scripts/build.py [addon]
+$ ./scripts/run.py [addon]
 ```
 
 ### Publishing
