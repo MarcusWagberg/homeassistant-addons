@@ -1,6 +1,6 @@
 name: Intermedium
 description: A smtp to homeassistant notify proxy
-version: 1.0.0
+version: 1.0.1
 slug: intermedium
 init: false
 arch:
