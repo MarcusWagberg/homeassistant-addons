@@ -8,17 +8,6 @@ from mailparser import parse_from_string
 from aiosmtpd.controller import Controller
 from asyncio import AbstractEventLoop, new_event_loop, set_event_loop
 
-TEST_CONFIG = """
-{
-    "users": [
-        {
-            "email": "intermedium@hass.local",
-            "notify_service": "notify"
-        }
-    ]
-}
-"""
-
 SUPERVISOR_TOKEN = ""
 CONFIG = {}
 HEADERS = {}
@@ -48,14 +37,24 @@ async def amain(loop: AbstractEventLoop):
     cont = Controller(IntermediumHandler(), hostname="", port=8025)
     cont.start()   
 
+
 if __name__ == "__main__":
+    print("Intermedium: Starting")
+
     SUPERVISOR_TOKEN = getenv("SUPERVISOR_TOKEN")
     HEADERS = {"Authorization": f"Bearer {SUPERVISOR_TOKEN}"}
-    if exists(argv[1]):
-        with open(argv[1], "r") as f:
-            CONFIG = loads(f.read())
-    else:
-        CONFIG = loads(TEST_CONFIG)
+
+    if len(argv) < 2:
+        print("Intermedium: [ERROR] no config file specified")
+        exit(1)
+
+    if not exists(argv[1]):
+        print("Intermedium: [ERROR] config file dose not exist")
+        exit(1)
+
+    with open(argv[1], "r") as f:
+        CONFIG = loads(f.read())
+
 
     loop = new_event_loop()
     set_event_loop(loop)

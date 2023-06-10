@@ -3,8 +3,9 @@ FROM $BUILD_FROM
 ARG BUILD_VERSION
 
 ENV LANG C.UTF-8
+ENV TEST_OPTIONS=0
 
-COPY requirements.txt rootfs /
+COPY requirements.txt options.test.json rootfs /
 
 RUN apk add --update \
     --no-cache \

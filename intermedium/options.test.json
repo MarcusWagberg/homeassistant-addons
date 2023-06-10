@@ -1,0 +1,8 @@
+{
+    "users": [
+        {
+            "email": "intermedium@hass.local",
+            "notify_service": "notify"
+        }
+    ]
+}

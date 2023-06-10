@@ -43,6 +43,9 @@ def main():
         remove=True,
         stdout=True,
         stderr=True,
+        environment=[
+            "TEST_OPTIONS=1"
+        ]
     )
     output = container.attach(stdout=True, stream=True, logs=True)
 

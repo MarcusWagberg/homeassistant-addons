@@ -1,8 +1,12 @@
 #!/usr/bin/with-contenv bashio
 
 # Add your code here
-
 CONFIG="/data/options.json"
 
+if [ $TEST_OPTIONS -eq 1 ]; then
+    echo "Using test options.json"
+    CONFIG="/options.test.json"
+fi
+
 ## Run your program
-exec /usr/bin/intermedium.py $CONFIG
+python3 /usr/bin/intermedium.py $CONFIG
