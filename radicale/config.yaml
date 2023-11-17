@@ -1,6 +1,6 @@
 name: Radicale
 description: A free and open-source CalDAV and CardDAV server
-version: 3.1.8
+version: 3.1.8r1
 slug: radicale
 webui: https://[HOST]:[PORT:5232]
 map:
