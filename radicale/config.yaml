@@ -5,6 +5,7 @@ slug: radicale
 webui: https://[HOST]:[PORT:5232]
 map:
 - ssl:ro
+- addon_config:ro
 init: false
 arch:
 - aarch64

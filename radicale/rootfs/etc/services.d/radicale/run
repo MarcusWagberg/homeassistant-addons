@@ -14,7 +14,7 @@ function escape_config () {
 
 ## Run your program
 CONFIG='/etc/radicale/config'
-STORAGE_PATH='/data/collections'
+STORAGE_PATH='/config'
 HTPASSWD_FILE='/etc/radicale/htpasswd'
 
 bashio::config.require.ssl 'ssl' 'certfile' 'keyfile'
