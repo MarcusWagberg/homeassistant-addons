@@ -36,8 +36,10 @@ def main():
 
     version = argv[2]
 
-    if repo.active_branch.name == "main":
-        print("Canot use main branch for publishing")
+    branch = f"{addon}-{version}"
+
+    if repo.active_branch.name != branch:
+        print(f"Must publish from branch: '{branch}'")
         exit(1)
 
     print(f">>> Publishing {addon} ({version}) <<<")
