@@ -1,5 +1,4 @@
-#!/bin/sh
-"exec" "`dirname $0`/../.venv/bin/python" "$0" "$@"
+#!/usr/bin/env python3
 
 from sys import argv
 from git import Repo
@@ -19,7 +18,7 @@ def print_usage():
     exit(1)
 
 def main():
-    root = common.get_root_path(argv[0])
+    root = common.get_root_path()
     repo = Repo(root)
 
     if len(argv)-1 != 2:

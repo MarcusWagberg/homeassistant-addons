@@ -1,5 +1,4 @@
-#!/bin/sh
-"exec" "`dirname $0`/../.venv/bin/python" "$0" "$@"
+#!/usr/bin/env python3
 
 from sys import argv
 from json import loads
@@ -55,7 +54,7 @@ def check_requirements_txt(requirements_path: str):
         print()
 
 def main():
-    root = common.get_root_path(argv[0])
+    root = common.get_root_path()
 
     for addon in common.addons:
         requirements_path = f"{root}/{addon}/requirements.txt"

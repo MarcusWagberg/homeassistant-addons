@@ -1,5 +1,4 @@
-#!/bin/sh
-"exec" "`dirname $0`/../.venv/bin/python" "$0" "$@"
+#!/usr/bin/env python3
 
 from sys import argv
 from docker import from_env
@@ -17,7 +16,7 @@ def print_usage():
     exit(1)
 
 def main():
-    root = common.get_root_path(argv[0])
+    root = common.get_root_path()
 
     if len(argv)-1 != 1:
         print_usage()

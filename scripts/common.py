@@ -1,14 +1,19 @@
 from re import match
 from platform import machine
-from os.path import abspath, dirname
+from os import getcwd
+from os.path import abspath, isfile
 
 addons = ["intermedium", "radicale"]
 
 def validate_version(ver: str) -> bool:
     return bool(match(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(r[1-9]\d*)?$", ver))
 
-def get_root_path(arg0: str) -> str:
-    return dirname(abspath(dirname(arg0)))
+def get_root_path() -> str:
+    cwd = getcwd()
+    if f"{cwd}/repository.yaml":
+        return cwd
+    else:
+        raise Exception("error: cwd is not root of addon repository")
 
 def get_arch() -> str:
     arch = machine()

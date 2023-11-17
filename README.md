@@ -13,8 +13,9 @@ Radicale is a small but powerful CalDAV (calendars, to-do lists) and CardDAV (co
 
 ## Building, running, publishing, etc
 Requierments:
-* Python3 (tested with Python 3.10.10)
-* Docker  (tested with Docker 23.0.1)
+* linux
+* nix
+* docker
 
 Clone git repository:
 ```Bash
@@ -26,27 +27,27 @@ Change directory into the repository:
 $ cd homeassistant-addons
 ```
 
-Create the python venv:
+Enter nix devshell:
 ```Bash
-$ ./venv.sh
+$ nix develop --no-write-lock-file
 ```
 
 ### Building
 ```Bash
-$ ./scripts/build.py [addon]
+$ build [addon]
 ```
 
 ### Running
 ```Bash
-$ ./scripts/run.py [addon]
+$ run [addon]
 ```
 
 ### Publishing
 ```Bash
-$ ./scripts/publish.py [addon] [version]
+$ publish [addon] [version]
 ```
 
 ### Checking outdated packages
 ```Bash
-$ ./scripts/outdated.py
+$ outdated
 ```
