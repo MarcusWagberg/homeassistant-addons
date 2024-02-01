@@ -1,6 +1,6 @@
 name: SilverBullet
 description: A web application allowing users to take notes in markdown.
-version: 0.6.1
+version: 0.6.1r1
 slug: silverbullet
 ingress: true
 ingress_port: 5332
