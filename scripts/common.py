@@ -1,7 +1,8 @@
 from re import match
 from platform import machine
-from os import getcwd
 from os.path import abspath, isfile
+from subprocess import Popen, DEVNULL
+from os import getcwd, environ, remove
 
 addons = ["intermedium", "radicale", "silverbullet"]
 
@@ -28,3 +29,11 @@ def get_arch() -> str:
     elif "i386" == arch:
         return "i386"
 
+def start_socat() -> Popen:
+    user_sock = f'{environ["HOME"]}/.docker.sock'
+    try:
+        remove(user_sock)
+    except OSError:
+        pass
+
+    return Popen(["socat", "-d", "-d", f"UNIX-LISTEN:{user_sock},fork", "UNIX-CONNECT:/var/run/docker.sock"], stdout = DEVNULL, stdin = DEVNULL, stderr = DEVNULL)

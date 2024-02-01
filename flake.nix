@@ -9,7 +9,7 @@
     packages = forAllSystems (pkgs: {
     	default = pkgs.stdenv.mkDerivation rec {
     	  name = "hass-addons-scripts";
-    	  propagatedBuildInputs = with pkgs.python3Packages; [ GitPython docker pyyaml requirements-parser ];
+    	  propagatedBuildInputs = with pkgs.python3Packages; [ GitPython docker pyyaml requirements-parser pkgs.socat ];
     	  src = ./scripts/.;
     	  installPhase = ''
     	      install -Dm755 common.py $out/bin/common.py

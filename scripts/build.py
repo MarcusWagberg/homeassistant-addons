@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
+from os import environ
 from docker import from_env
 
 import common
@@ -18,6 +19,8 @@ def build(addon_name: str, addon_path, all_arch: bool) -> bool:
     print(f">>> Building {addon_name} <<<")
     arch_arg = " --all" if all_arch else f" --{common.get_arch()}"
 
+    socat = common.start_socat()
+
     docker_client = from_env()
     container = docker_client.containers.run(
         f"homeassistant/{common.get_arch()}-builder",
@@ -25,7 +28,7 @@ def build(addon_name: str, addon_path, all_arch: bool) -> bool:
         name="builder",
         volumes=[
             f"{addon_path}:/data",
-            "/var/run/docker.sock:/var/run/docker.sock:ro"
+            f'{environ["HOME"]}/.docker.sock:/var/run/docker.sock:ro'
         ],
         tty=True,
         privileged=True,
@@ -36,14 +39,20 @@ def build(addon_name: str, addon_path, all_arch: bool) -> bool:
     )
     output = container.attach(stdout=True, stream=True, logs=True)
 
+    fail = True
+
     for line in output:
-        print(line.decode(), end="")
+        decoded_line = line.decode()
+        print(decoded_line, end="")
+        if "Finish build for" in decoded_line:
+            fail = False
 
     exit = container.wait()
-    if exit["StatusCode"] == 0:
-        return True
-    else:
+    socat.kill()
+    if fail:
         return False
+    else:
+        return True
 
 def main():
     root = common.get_root_path()

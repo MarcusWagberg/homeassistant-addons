@@ -44,6 +44,8 @@ def main():
 
     print(f">>> Publishing {addon} ({version}) <<<")
 
+    socat = common.start_socat()
+
     with open(f"{root}/{addon}/config.yaml", 'r+') as f:
         data = load(f, Loader=SafeLoader)
         data["version"] = version
@@ -59,7 +61,7 @@ def main():
         volumes=[
             f"{root}/{addon}:/data",
             f'{environ["HOME"]}/.docker:/root/.docker',
-            "/var/run/docker.sock:/var/run/docker.sock:ro"
+            f'{environ["HOME"]}/.docker.sock:/var/run/docker.sock:ro'
         ],
         tty=True,
         privileged=True,
@@ -70,11 +72,17 @@ def main():
     )
     output = container.attach(stdout=True, stream=True, logs=True)
 
+    fail = True
+
     for line in output:
-        print(line.decode(), end="")
+        decoded_line = line.decode()
+        print(decoded_line, end="")
+        if "Upload succeeded on attempt" in decoded_line:
+            fail = False
 
     container_exit = container.wait()
-    if container_exit["StatusCode"] != 0:
+    socat.kill()
+    if fail:
         print(">>> Publishing Unsuccessful <<<")
         exit(1)
     
