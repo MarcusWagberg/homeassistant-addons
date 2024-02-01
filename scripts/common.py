@@ -3,7 +3,7 @@ from platform import machine
 from os import getcwd
 from os.path import abspath, isfile
 
-addons = ["intermedium", "radicale"]
+addons = ["intermedium", "radicale", "silverbullet"]
 
 def validate_version(ver: str) -> bool:
     return bool(match(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(r[1-9]\d*)?$", ver))

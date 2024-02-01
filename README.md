@@ -10,6 +10,9 @@ Intermedium is a smtp to homeassistant notify proxy, writen by myself.
 ### Radicale
 Radicale is a small but powerful CalDAV (calendars, to-do lists) and CardDAV (contacts) server. This addon also includes RadicaleInfCloud which integrates InfCloud into Radicale's web interface. InfCloud allows you to to manage appointments, tasks and contacts in the browser.
 
+### SilverBullet
+SilverBullet is a open-source, self-hosted, offline-capable web application allowing users to take notes in markdown, fetuatring advanced features such as metadata annotations, its Objects infrastructure, Live Queries and Live Templates.
+
 
 ## Building, running, publishing, etc
 Requierments:

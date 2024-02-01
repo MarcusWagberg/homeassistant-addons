@@ -1,0 +1,14 @@
+name: SilverBullet
+description: A web application allowing users to take notes in markdown.
+version: 0.0.0
+slug: silverbullet
+ingress: true
+ingress_port: 5332
+panel_icon: mdi:note-text
+map:
+- addon_config:rw
+init: false
+arch:
+#- aarch64
+- amd64
+image: ghcr.io/marcuswagberg/hass-silverbullet-{arch}

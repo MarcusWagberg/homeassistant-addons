@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+
+# Add your code here
+
+mkdir -p /config/
+
+/sources/deno run --allow-env --allow-read --allow-write --allow-net --unstable-kv /sources/silverbullet.js /config -L 0.0.0.0 -p 5332

@@ -1,0 +1,7 @@
+https://github.com/silverbulletmd/silverbullet/releases/download/0.6.1/silverbullet.js @ all
+
+https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk @ amd64
+https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-bin-2.34-r0.apk @ amd64
+https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-i18n-2.34-r0.apk @ amd64
+
+https://github.com/denoland/deno/releases/download/v1.40.3/deno-x86_64-unknown-linux-gnu.zip @ amd64
