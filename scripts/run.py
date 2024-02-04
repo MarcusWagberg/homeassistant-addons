@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 from sys import argv
-from docker import from_env
+from time import sleep
+from os import environ
+from docker import DockerClient
 
 import common
 import build
@@ -35,7 +37,10 @@ def main():
 
     print(f">>> Running {addon} ({image}) <<<")
 
-    docker_client = from_env()
+    socat = common.start_socat()
+    sleep(2)
+
+    docker_client = DockerClient(base_url=f'unix:/{environ["HOME"]}/.docker.sock')
     container = docker_client.containers.run(
         image,
         detach=True,
@@ -48,11 +53,14 @@ def main():
     )
     output = container.attach(stdout=True, stream=True, logs=True)
 
+
     try:
         for line in output:
             print(line.decode(), end="")
+        socat.kill()
     except KeyboardInterrupt:
         container.remove(force=True)
+        socat.kill()
         exit(1)
 
 if __name__ == "__main__":
