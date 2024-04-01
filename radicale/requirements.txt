@@ -1,2 +1,2 @@
-radicale == 3.1.8
+radicale == 3.1.9
 https://github.com/Unrud/RadicaleInfCloud/archive/master.tar.gz
